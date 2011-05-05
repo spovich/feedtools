@@ -379,3 +379,7 @@ begin
   end
 rescue
 end
+
+if RUBY_VERSION > '1.9.0' and not defined?(DL::Importable)
+  DL::Importable = DL::Importer
+end
