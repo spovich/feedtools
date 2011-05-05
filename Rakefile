@@ -8,21 +8,6 @@ require 'rake/contrib/rubyforgepublisher'
 
 require File.join(File.dirname(__FILE__), 'lib/feed_tools', 'version')
 
-PKG_NAME      = 'feedtools'
-PKG_VERSION   = FeedTools::FEED_TOOLS_VERSION::STRING
-PKG_FILE_NAME = "#{PKG_NAME}-#{PKG_VERSION}"
-
-RELEASE_NAME  = "REL #{PKG_VERSION}"
-
-RUBY_FORGE_PROJECT = PKG_NAME
-RUBY_FORGE_USER    = "sporkmonger"
-RUBY_FORGE_PATH    = "/var/www/gforge-projects/#{RUBY_FORGE_PROJECT}"
-
-PKG_FILES = FileList[
-    "lib/**/*", "test/**/*", "examples/**/*", "doc/**/*", "db/**/*",
-    "[A-Z]*", "install.rb", "rakefile"
-].exclude(/\bCVS\b|~$/).exclude(/database\.yml/).exclude(/\._.*/)
-
 desc "Default Task"
 task :default => [ :test_all ]
 
@@ -102,54 +87,37 @@ Rake::RDocTask.new { |rdoc|
   rdoc.rdoc_files.include('db/**/*.sql')
 }
 
-# Create compressed packages
+begin
+  require 'jeweler'
+  Jeweler::Tasks.new do |gem|
+    gem.name = 'grosser-feedtools'
+    gem.version = FeedTools::FEED_TOOLS_VERSION::STRING
 
-dist_dirs = [ "lib", "test", "db" ]
+    gem.authors = ["Bob Aman"]
+    gem.email = "bob@sporkmonger.com"
+    gem.homepage = "http://github.com/grosser/feedtools"
+    gem.summary = "Parsing, generation, and caching system for xml news feeds."
+    gem.description = "Implements a simple system for handling xml news feeds with caching."
 
-spec = Gem::Specification.new do |s|
-  s.name = PKG_NAME
-  s.version = PKG_VERSION
-  s.summary = "Parsing, generation, and caching system for xml news feeds."
-  s.description = "Implements a simple system for handling xml news feeds with caching."
+    gem.add_dependency('activerecord', '>= 1.10.1')
+    gem.add_dependency('uuidtools', '>= 1.0.0')
+    gem.add_dependency('builder', '>= 1.2.4')
+    gem.post_install_message = <<-TEXT
 
-  s.files = [ "rakefile", "install.rb", "README", "CHANGELOG" ]
-  dist_dirs.each do |dir|
-    s.files = s.files + Dir.glob( "#{dir}/**/*" ).delete_if do |item|
-      item.include?( "\.svn" ) || item.include?( "database\.yml" )
-    end
-  end
-  
-  s.add_dependency('activerecord', '>= 1.10.1')
-  s.add_dependency('uuidtools', '>= 1.0.0')
-  s.add_dependency('builder', '>= 1.2.4')
+      FeedTool's caching schema has changed to allow Feed objects to be
+      serialized to the cache.  This should offer some limited speed up
+      in some cases.
 
-  s.require_path = 'lib'
-  
-  begin
-  s.post_install_message = <<-TEXT
+    TEXT
 
-    FeedTool's caching schema has changed to allow Feed objects to be
-    serialized to the cache.  This should offer some limited speed up
-    in some cases.
-
-  TEXT
-  rescue Exception
+    gem.has_rdoc = true
+    gem.extra_rdoc_files = %w( README.md )
+    gem.rdoc_options.concat ['--main',  'README.md']
   end
 
-  s.has_rdoc = true
-  s.extra_rdoc_files = %w( README )
-  s.rdoc_options.concat ['--main',  'README']
-  
-  s.author = "Bob Aman"
-  s.email = "bob@sporkmonger.com"
-  s.homepage = "http://sporkmonger.com/projects/feedtools"
-  s.rubyforge_project = "feedtools"
-end
-  
-Rake::GemPackageTask.new(spec) do |p|
-  p.gem_spec = spec
-  p.need_tar = true
-  p.need_zip = true
+  Jeweler::GemcutterTasks.new
+rescue LoadError
+  puts "Jeweler, or one of its dependencies, is not available. Install it with: gem install jeweler"
 end
 
 task :profile do
