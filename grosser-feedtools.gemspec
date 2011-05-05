@@ -22,6 +22,7 @@ Gem::Specification.new do |s|
     "db/schema.mysql.sql",
     "db/schema.postgresql.sql",
     "db/schema.sqlite.sql",
+    "grosser-feedtools.gemspec",
     "install.rb",
     "lib/feed_tools.rb",
     "lib/feed_tools/database_feed_cache.rb",
@@ -2933,22 +2934,13 @@ Gem::Specification.new do |s|
       s.add_runtime_dependency(%q<activerecord>, [">= 0"])
       s.add_runtime_dependency(%q<uuidtools>, [">= 1.0.0"])
       s.add_runtime_dependency(%q<builder>, [">= 1.2.4"])
-      s.add_runtime_dependency(%q<activerecord>, [">= 1.10.1"])
-      s.add_runtime_dependency(%q<uuidtools>, [">= 1.0.0"])
-      s.add_runtime_dependency(%q<builder>, [">= 1.2.4"])
     else
       s.add_dependency(%q<activerecord>, [">= 0"])
-      s.add_dependency(%q<uuidtools>, [">= 1.0.0"])
-      s.add_dependency(%q<builder>, [">= 1.2.4"])
-      s.add_dependency(%q<activerecord>, [">= 1.10.1"])
       s.add_dependency(%q<uuidtools>, [">= 1.0.0"])
       s.add_dependency(%q<builder>, [">= 1.2.4"])
     end
   else
     s.add_dependency(%q<activerecord>, [">= 0"])
-    s.add_dependency(%q<uuidtools>, [">= 1.0.0"])
-    s.add_dependency(%q<builder>, [">= 1.2.4"])
-    s.add_dependency(%q<activerecord>, [">= 1.10.1"])
     s.add_dependency(%q<uuidtools>, [">= 1.0.0"])
     s.add_dependency(%q<builder>, [">= 1.2.4"])
   end

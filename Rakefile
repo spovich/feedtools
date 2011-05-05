@@ -99,9 +99,6 @@ begin
     gem.summary = "Parsing, generation, and caching system for xml news feeds."
     gem.description = "Implements a simple system for handling xml news feeds with caching."
 
-    gem.add_dependency('activerecord', '>= 1.10.1')
-    gem.add_dependency('uuidtools', '>= 1.0.0')
-    gem.add_dependency('builder', '>= 1.2.4')
     gem.post_install_message = <<-TEXT
 
       FeedTool's caching schema has changed to allow Feed objects to be
