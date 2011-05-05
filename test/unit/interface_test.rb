@@ -1,5 +1,4 @@
-require 'test/unit'
-require 'feed_tools'
+require File.expand_path('test/test_helper')
 require 'feed_tools/helpers/feed_tools_helper'
 
 class InterfaceTest < Test::Unit::TestCase

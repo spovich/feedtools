@@ -1,5 +1,4 @@
-require 'test/unit'
-require 'feed_tools'
+require File.expand_path('test/test_helper')
 
 class GenerationTest < Test::Unit::TestCase
   def setup
