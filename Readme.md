@@ -1,4 +1,8 @@
-This branch tries to make feed-tools ruby 1.9 compatible and locally testable(outside of a rails app)
+This branch goals:
+
+ - ruby 1.9 compatible
+ - testable outside of a rails app
+ - tests runnable via ruby test/xxx.rb
 
 FeedTools was designed to be a simple XML feed parser, generator, and
 translator with a built-in caching system.
