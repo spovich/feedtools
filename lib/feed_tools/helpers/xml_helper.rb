@@ -69,6 +69,7 @@ module FeedTools
       if element.nil?
         return nil
       end
+      xpath_list = [*xpath_list]
       for xpath in xpath_list
         # Namespace aware
         result = REXML::XPath.liberal_first(element, xpath,
