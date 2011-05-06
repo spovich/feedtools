@@ -16,8 +16,4 @@ ActiveRecord::Schema.define(:version => 1) do
   AddFeedToolsTables.up
 end
 
-# create models
-class CachedFeeds < ActiveRecord::Base
-end
-
-FeedTools.configurations[:feed_cache] = CachedFeeds
+FeedTools.configurations[:feed_cache] = "FeedTools::DatabaseFeedCache"
